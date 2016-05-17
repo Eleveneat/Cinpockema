@@ -14,5 +14,5 @@ hs_err_pid*
 # log
 logs
 
-target
-gradle
+/target/*
+/gradle/*
