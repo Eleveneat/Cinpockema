@@ -4,11 +4,17 @@ package com.c09.cinpockema.entities;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Session {
@@ -16,11 +22,11 @@ public class Session {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;  
 	
-	@Column(nullable=false, unique=true, length=32)
+	@Column(nullable=false, unique=true, length=36)
 	private String token;
 
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="user_id")
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH }, optional = true)   
+    @JoinColumn(name="user_id")
 	private User user;
 
 	private long createTime;
@@ -59,4 +65,11 @@ public class Session {
 		return id;
 	}
 	
+	@JsonBackReference
+	public boolean isNotExpired() {
+//		long createTime = session.getCreateTime();
+//		long nowTime = System.currentTimeMillis();
+//		return (nowTime - createTime) < 30 * 60;
+		return true;
+	}
 }

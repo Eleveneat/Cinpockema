@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.c09.cinpockema.entities.repositories.UserRepository;
 
+
 @Service
 public class DataInitService {
 	
@@ -15,7 +16,7 @@ public class DataInitService {
     UserRepository userRepository;
 
     @PostConstruct
-    public void dataInit(){
+    public void userDataInit(){
         User admin = new User();
         admin.setPassword("admin");
         admin.setUsername("admin");
@@ -28,4 +29,11 @@ public class DataInitService {
         user.setRole(User.ROLE.user);
         userRepository.save(user);
     }
+    
+    @PostConstruct
+    public void movieDataInit(){
+    	// TODO movie data init
+    	System.err.println("It seems work.");
+    }
+    
 }

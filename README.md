@@ -21,7 +21,7 @@ mvn package && java -jar target/Cinpockema-0.0.1-SNAPSHOT.jar
 
 PS: 建议使用Eclipse (STS) 进行开发，在此环境下只需右键点击```Applicaiton.java```，然后选择```Run As``` -> ```Spring Boot``` 即可。
 
-默认监听 http://127.0.0.1:8080 ，如需修改请参考配置方式。
+默认监听 http://127.0.0.1:8080 ，如需修改请参考配置文件。
 
 ## 3. 项目结构
 1. 项目包含多个模块，而每个模块按照层级结构划分，以注解(Annotation)作为标志
@@ -52,7 +52,7 @@ PS: 建议使用Eclipse (STS) 进行开发，在此环境下只需右键点击``
   │                      ├─entities        // 实体
   │                      │  └─repositories // 仓库
   │                      └─service         // 服务
-  ├─pox.xml  // 包依赖
+  ├─pom.xml  // 包依赖
   |
   |...
 ```
@@ -67,7 +67,7 @@ server:
   port: 8080              # 监听端口
   address: 127.0.0.1      # 监听地址
   sessionTimeout: 30      # 待用
-  contextPath: /
+  contextPath: /api/      # url端点（公共前缀）
 
   # Tomcat specifics
   tomcat:

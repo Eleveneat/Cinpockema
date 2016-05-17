@@ -8,6 +8,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,12 +19,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -54,6 +60,20 @@ public class User implements UserDetails {
 	private String password;  
 
 
+	@OneToMany(cascade = { CascadeType.REFRESH, CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REMOVE }, mappedBy = "user")
+	private Collection<Session> sessions;
+	
+	@JsonBackReference
+	public Collection<Session> getSessions() {
+		return sessions;
+	}
+
+
+	public void setSessions(Collection<Session> sessions) {
+		this.sessions = sessions;
+	}
+
+
 	public User() {}
 	
 	
@@ -70,7 +90,7 @@ public class User implements UserDetails {
 		this.username = username;
 	}
 
-
+	@JsonBackReference
 	public String getPassword() {
 		return password;
 	}
@@ -87,6 +107,11 @@ public class User implements UserDetails {
 	public void setRole(ROLE role) {
 		this.role = role;
 	}
+	
+	public void addSession(Session session){   
+        session.setUser(this);//用关系维护端来维护关系   
+        this.sessions.add(session);   
+    }   
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
