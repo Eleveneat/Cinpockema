@@ -1,0 +1,32 @@
+# Server settings (ServerProperties)
+server:
+  port: 8080
+  address: 127.0.0.1
+  sessionTimeout: 30
+  contextPath: /
+
+  # Tomcat specifics
+  tomcat:
+    accessLogEnabled: true
+    protocolHeader: x-forwarded-proto
+    remoteIpHeader: x-forwarded-for
+    basedir:
+    backgroundProcessorDelay: 30 # secs
+
+# Spring settings
+spring: 
+  # Use mysql, name of database is "cinpockema"
+#  datasource:
+#    driverClassName: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/cinpockema?useUnicode=true&characterEncoding=utf8
+#    username: root
+#    password:
+
+# Security settings
+security: 
+  basic:
+    enabled: true
+#  user:
+#    name: secured
+#    password: foo
+

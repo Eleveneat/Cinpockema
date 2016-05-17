@@ -1,2 +1,2 @@
-# cinpockema
+# Cinpockema
 Course Project for SE305

@@ -34,6 +34,19 @@ public class SessionService {
 		if (currentUser != null) {
 			Session session = new Session();
 			String token = UUID.randomUUID().toString();
+			session.setToken(token);
+			session.setUser(currentUser);
+			return sessionRepository.save(session);
+		} else {
+			return null;
+		}
+	}
+	
+	public Session logout() {
+		User currentUser = getCurrentUser();
+		if (currentUser != null) {
+			Session session = new Session();
+			String token = UUID.randomUUID().toString();
 			
 			session.setToken(token);
 			session.setUser(currentUser);
